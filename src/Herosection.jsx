@@ -7,7 +7,6 @@ import {
   Check,
   ImagePlus,
   Sparkles,
-  Upload,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -113,11 +112,14 @@ function StyleCard({ style, offset, onClick, compact }) {
             className="h-full w-full object-cover"
             loading="lazy"
           />
+
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+
           <div className="absolute inset-x-2 bottom-2 sm:inset-x-3 sm:bottom-3">
             <span className="block text-[8px] font-medium uppercase tracking-[0.16em] text-white/65 sm:text-[9px]">
               {style.category}
             </span>
+
             <span className="mt-1 block text-[12px] font-semibold tracking-tight text-white sm:text-[15px]">
               {style.name}
             </span>
@@ -138,8 +140,11 @@ export default function Herosection() {
 
   useEffect(() => {
     const updateSize = () => setIsCompact(window.innerWidth < 640);
+
     updateSize();
+
     window.addEventListener("resize", updateSize);
+
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
@@ -155,11 +160,12 @@ export default function Herosection() {
 
   function handleUpload(event) {
     const file = event.target.files?.[0];
-    if (!file) return;
 
+    if (!file) return;
     if (!file.type.startsWith("image/")) return;
 
     const nextPhoto = URL.createObjectURL(file);
+
     setUploadedPhoto((previous) => {
       if (previous) URL.revokeObjectURL(previous);
       return nextPhoto;
@@ -185,14 +191,17 @@ export default function Herosection() {
       >
         {/* Background atmosphere */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(125,145,74,0.27),transparent_48%),radial-gradient(ellipse_at_5%_90%,rgba(106,130,59,0.13),transparent_35%)]" />
+
         <div className="pointer-events-none absolute inset-0 opacity-[0.055] [background-image:radial-gradient(#fff_0.65px,transparent_0.65px)] [background-size:5px_5px]" />
 
         {/* Header */}
         <header className="relative z-30 flex items-center justify-between px-5 py-6 sm:px-9 sm:py-8 lg:px-12">
-          <a href="#" className="flex items-center gap-1 text-sm font-semibold tracking-[0.2em]">
-            
+          <Link
+            to="/"
+            className="flex items-center gap-1 text-sm font-semibold tracking-[0.2em]"
+          >
             Mavic<span className="text-[#d5ff9d]">.Studio</span>
-          </a>
+          </Link>
 
           <a
             href="#styles"
@@ -201,12 +210,13 @@ export default function Herosection() {
             Explore styles <ArrowUpRight size={16} />
           </a>
 
+          {/* Corrected React Router Link */}
           <Link
-            href="/auth"
+            to="/auth"
             className="flex items-center gap-2 text-xs text-white/70 transition hover:text-white sm:text-sm"
           >
             Sign in <ArrowUpRight size={16} />
-          </a>
+          </Link>
         </header>
 
         {/* Hero heading */}
@@ -219,7 +229,9 @@ export default function Herosection() {
           <h1 className="font-serif text-[42px] leading-[0.98] tracking-[-0.055em] sm:text-6xl md:text-7xl lg:text-[88px]">
             One photo.
             <br />
-            <span className="italic text-[#d5ff9d]">Infinite worlds.</span>
+            <span className="italic text-[#d5ff9d]">
+              Infinite worlds.
+            </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-md text-sm leading-6 text-white/55 sm:text-base">
@@ -235,16 +247,24 @@ export default function Herosection() {
         >
           {/* Elliptical orbit lines */}
           <div className="pointer-events-none absolute left-1/2 top-1/2 h-[170px] w-[130%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-[#e5edb0]/15 sm:h-[255px]" />
+
           <div className="pointer-events-none absolute left-1/2 top-1/2 h-[125px] w-[112%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-[#e5edb0]/10 sm:h-[195px]" />
 
           {/* Orbiting cards */}
           {styles.map((style, index) => {
             let offset = index - active;
 
-            if (offset > styles.length / 2) offset -= styles.length;
-            if (offset < -styles.length / 2) offset += styles.length;
+            if (offset > styles.length / 2) {
+              offset -= styles.length;
+            }
 
-            if (offset === 0 || Math.abs(offset) > 3) return null;
+            if (offset < -styles.length / 2) {
+              offset += styles.length;
+            }
+
+            if (offset === 0 || Math.abs(offset) > 3) {
+              return null;
+            }
 
             return (
               <StyleCard
@@ -266,9 +286,21 @@ export default function Herosection() {
                     key={`${active}-${uploadedPhoto || "demo"}`}
                     src={uploadedPhoto || currentStyle.image}
                     alt={`${currentStyle.name} preview`}
-                    initial={{ opacity: 0, scale: 1.08, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 0.97, filter: "blur(4px)" }}
+                    initial={{
+                      opacity: 0,
+                      scale: 1.08,
+                      filter: "blur(8px)",
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      filter: "blur(0px)",
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.97,
+                      filter: "blur(4px)",
+                    }}
                     transition={{ duration: 0.55 }}
                     className="absolute inset-0 h-full w-full object-cover"
                   />
@@ -287,6 +319,7 @@ export default function Herosection() {
                       <Sparkles size={11} className="text-[#d5ff9d]" />
                       Now exploring
                     </div>
+
                     <p className="mt-1 text-sm font-semibold sm:text-base">
                       {currentStyle.name}
                     </p>
@@ -312,9 +345,11 @@ export default function Herosection() {
               <p className="text-[10px] uppercase tracking-[0.24em] text-[#d5ff9d]/65">
                 {currentStyle.category}
               </p>
+
               <h2 className="mt-2 font-serif text-3xl tracking-tight sm:text-4xl">
                 {currentStyle.name}
               </h2>
+
               <p className="mt-2 text-sm text-white/50">
                 {currentStyle.description}
               </p>
@@ -322,9 +357,16 @@ export default function Herosection() {
           </AnimatePresence>
 
           <label className="mx-auto mt-6 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[#d5ff9d] px-6 py-3.5 text-sm font-semibold text-[#172010] shadow-[0_0_28px_rgba(213,255,157,0.12)] transition hover:-translate-y-0.5 hover:bg-[#e4ffbd] sm:px-7">
-            {uploadedPhoto ? <Check size={17} /> : <ImagePlus size={17} />}
+            {uploadedPhoto ? (
+              <Check size={17} />
+            ) : (
+              <ImagePlus size={17} />
+            )}
+
             {uploadedPhoto ? "Photo selected" : "Try your own photo"}
+
             <ArrowUpRight size={17} />
+
             <input
               type="file"
               accept="image/*"
@@ -355,6 +397,7 @@ export default function Herosection() {
               {String(active + 1).padStart(2, "0")} /{" "}
               {String(styles.length).padStart(2, "0")}
             </span>
+
             <button
               onClick={() => selectStyle(active + 1)}
               aria-label="Next style"
