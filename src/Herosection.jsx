@@ -9,6 +9,7 @@ import {
   Sparkles,
   Upload,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const styles = [
   {
@@ -200,7 +201,7 @@ export default function Herosection() {
             Explore styles <ArrowUpRight size={16} />
           </a>
 
-          <a
+          <Link
             href="/auth"
             className="flex items-center gap-2 text-xs text-white/70 transition hover:text-white sm:text-sm"
           >

@@ -9,7 +9,7 @@ import {
   Check,
   ArrowLeft,
 } from "lucide-react";
-
+import {Link} from "react-dom";
 export default function AuthPage({ onSubmit }) {
   const [mode, setMode] = useState("signup");
   const [showPassword, setShowPassword] = useState(false);

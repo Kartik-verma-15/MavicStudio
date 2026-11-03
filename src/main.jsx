@@ -1,19 +1,23 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import AuthPage from './Auth.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
-const routes = {
-  '/': App,
-  '/auth': AuthPage,
-}
+import "./index.css";
+import App from "./App.jsx";
+import AuthPage from "./Auth.jsx";
 
-const pathname = window.location.pathname.replace(/\/+$/, '') || '/'
-const RootPage = routes[pathname] || App
-
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RootPage />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="*" element={<App />} />
+      </Routes>
+    </BrowserRouter>
   </StrictMode>
-)
+);
