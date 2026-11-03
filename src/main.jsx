@@ -5,11 +5,10 @@ import App from './App.jsx'
 import ExploreWorlds from './Section2.jsx'
 import StepsSection from './Stepssection.jsx'
 import Footer from './Footer.jsx'
+import BackendTest from './Backendtest.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
-    <ExploreWorlds />
-    <StepsSection />
-    <Footer />
+    
   </StrictMode>
 )
